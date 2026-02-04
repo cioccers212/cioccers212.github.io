@@ -10,20 +10,28 @@
 
     <header>
         <h1>SMEGPIO LAUREATO 🎓</h1>
-        <p>Scorri per vedere il disastro...</p>
+        <p>Un po' sentimentale? Forse sì, ma non ce ne frega una minchia</p>
     </header>
 
-    <div class="stream">
-        <img src="foto1.jpg" alt="Laurea">
-        <img src="foto2.jpg" alt="Laurea">
-        <img src="foto3.jpg" alt="Laurea">
-
-        </div>
+    <div class="stream" id="photo-stream"></div>
 
     <footer>
-        <p>Congratulazioni Buso!</p>
+        <p>Grazie Buso!</p>
     </footer>
+
+    <script>
+        // --- CONFIGURAZIONE ---
+        const numeroTotaleFoto = 20; // <--- CAMBIA QUESTO NUMERO con quante foto hai caricato
+        const contenitore = document.getElementById('photo-stream');
+
+        for (let i = 1; i <= numeroTotaleFoto; i++) {
+            const img = document.createElement('img');
+            img.src = `foto${i}.jpg`; // Prende foto1.jpg, foto2.jpg, ecc.
+            img.alt = `Foto di laurea ${i}`;
+            img.loading = "lazy"; // Carica la foto solo quando stai per vederla (sito più veloce!)
+            contenitore.appendChild(img);
+        }
+    </script>
 
 </body>
 </html>
-
