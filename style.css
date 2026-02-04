@@ -1,39 +1,78 @@
+/* --- TEMA LAUREA BLU NOTTE & ORO --- */
+
 body {
     margin: 0;
     padding: 0;
-    background-color: #000; /* Sfondo nero così le foto risaltano */
-    color: #fff;
-    font-family: sans-serif;
+    background-color: #0a192f; /* Blu notte profondo */
+    color: #e6f1ff;
+    font-family: 'Georgia', serif; /* Font più accademico ed elegante */
     text-align: center;
 }
 
 header {
-    padding: 40px 20px;
-    background: linear-gradient(to bottom, #8b0000, #000); /* Sfumatura rosso laurea */
+    padding: 80px 20px;
+    background: linear-gradient(to bottom, #112240, #0a192f);
+    border-bottom: 1px solid #1b3a63;
 }
 
 h1 {
     margin: 0;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #f1c40f; /* Oro brillante */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     letter-spacing: 2px;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #8892b0;
+    margin-top: 10px;
+    font-style: italic;
 }
 
 .stream {
     display: flex;
-    flex-direction: column; /* Foto una sotto l'altra */
+    flex-direction: column;
     align-items: center;
-    gap: 10px; /* Spazio minimo tra le foto */
+    gap: 40px; /* Spazio generoso tra le foto */
+    padding: 50px 15px;
 }
 
 .stream img {
     width: 100%;
-    max-width: 800px; /* Non farle diventare giganti su computer */
+    max-width: 800px;
     height: auto;
     display: block;
+    /* Effetto Polaroid/Cornice Bianca */
+    background-color: white;
+    padding: 12px 12px 50px 12px; /* Spazio bianco sotto come le vecchie foto */
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+    transition: transform 0.4s ease;
+}
+
+/* Effetto al passaggio del mouse (solo su PC) */
+.stream img:hover {
+    transform: rotate(-1deg) scale(1.02);
 }
 
 footer {
-    padding: 50px 20px;
-    font-size: 0.8rem;
-    color: #666;
+    padding: 60px 20px;
+    background-color: #020c1b;
+    color: #495670;
+    font-size: 0.9rem;
 }
+
+/* Ottimizzazione per Mobile (iPhone) */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    .stream {
+        gap: 25px;
+    }
+    
+    .stream img {
+        padding: 8px
