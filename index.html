@@ -37,26 +37,44 @@
             contenitore.appendChild(img);
         }
 
-        // --- 2. LOGICA CORIANDOLI AUTOMATICI ---
         function lanciaCoriandoli() {
-            confetti({
-                particleCount: 250,
-                spread: 100,
-                origin: { y: 0.8 },
-                colors: ['#f1c40f', '#ffffff', '#1b3a63']
-            });
-        }
+        // Lancio principale dal centro basso
+        confetti({
+            particleCount: 400, // Più coriandoli (era 250)
+            spread: 160,       // Più larghi (era 100)
+            origin: { y: 0.7 },
+            colors: ['#f1c40f', '#e74c3c', '#3498db', '#2ecc71', '#9b59b6', '#ffffff'] // Oro, Rosso, Blu, Verde, Viola, Bianco
+        });
 
-        // Sensore di fine pagina
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    lanciaCoriandoli();
-                }
-            });
-        }, { threshold: 0.8 });
+        // Lancio extra da sinistra
+        confetti({
+            particleCount: 100,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#f1c40f', '#ffffff']
+        });
 
-        observer.observe(document.querySelector('footer'));
-    </script>
+        // Lancio extra da destra
+        confetti({
+            particleCount: 100,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#f1c40f', '#ffffff']
+        });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                lanciaCoriandoli();
+            }
+        });
+    }, { threshold: 0.8 });
+
+    observer.observe(document.querySelector('footer'));
+</script>
 </body>
 </html>
+
