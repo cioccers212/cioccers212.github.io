@@ -31,10 +31,40 @@
             img.loading = "lazy"; // Carica la foto solo quando stai per vederla (sito più veloce!)
             contenitore.appendChild(img);
         }
+
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+    // Funzione per lanciare i coriandoli
+    function lanciaCoriandoli() {
+        confetti({
+            particleCount: 200,
+            spread: 100,
+            origin: { y: 0.8 }, // Partono dal basso
+            colors: ['#f1c40f', '#ffffff', '#1b3a63']
+        });
+    }
+
+    // Il "Sensore" che controlla quando arrivi in fondo
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                lanciaCoriandoli();
+                // Se vuoi che esplodano solo la prima volta che arriva in fondo,
+                // scommenta la riga qui sotto:
+                // observer.unobserve(entry.target); 
+            }
+        });
+    }, { threshold: 0.5 }); // Si attiva quando vede metà del footer
+
+    // Diciamo al sensore di guardare il footer
+    observer.observe(document.querySelector('footer'));
+
     </script>
 
 </body>
 </html>
+
 
 
 
