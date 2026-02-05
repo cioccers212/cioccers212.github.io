@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMEGPIO LAUREATO 🎓</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
@@ -16,56 +18,45 @@
     <div class="stream" id="photo-stream"></div>
 
     <footer>
-        <p>Grazie per questi anni Buso!</p>
+        <p>Grazie per tutti questi anni Buso!</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <script>
-        // --- CONFIGURAZIONE ---
-        const numeroTotaleFoto = 80; // <--- CAMBIA QUESTO NUMERO con quante foto hai caricato
+        // --- 1. CARICAMENTO FOTO (Formato Windows: foto (1).jpg) ---
+        const numeroTotaleFoto = 80; // <--- METTI IL TUO NUMERO REALE QUI
         const contenitore = document.getElementById('photo-stream');
 
         for (let i = 1; i <= numeroTotaleFoto; i++) {
             const img = document.createElement('img');
-            img.src = `foto (${i}).jpg`; // Prende foto1.jpg, foto2.jpg, ecc.
-            img.alt = `Foto di laurea ${i}`;
-            img.loading = "lazy"; // Carica la foto solo quando stai per vederla (sito più veloce!)
+            // Nota lo spazio: "foto (1).jpg"
+            img.src = `foto (${i}).jpg`; 
+            img.alt = `Foto Laurea ${i}`;
+            img.loading = "lazy";
             contenitore.appendChild(img);
         }
 
-        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        // --- 2. LOGICA CORIANDOLI AUTOMATICI ---
+        function lanciaCoriandoli() {
+            confetti({
+                particleCount: 250,
+                spread: 100,
+                origin: { y: 0.8 },
+                colors: ['#f1c40f', '#ffffff', '#1b3a63']
+            });
+        }
 
-<script>
-    // Funzione per lanciare i coriandoli
-    function lanciaCoriandoli() {
-        confetti({
-            particleCount: 200,
-            spread: 100,
-            origin: { y: 0.8 }, // Partono dal basso
-            colors: ['#f1c40f', '#ffffff', '#1b3a63']
-        });
-    }
+        // Sensore di fine pagina
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    lanciaCoriandoli();
+                }
+            });
+        }, { threshold: 0.8 });
 
-    // Il "Sensore" che controlla quando arrivi in fondo
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                lanciaCoriandoli();
-                // Se vuoi che esplodano solo la prima volta che arriva in fondo,
-                // scommenta la riga qui sotto:
-                // observer.unobserve(entry.target); 
-            }
-        });
-    }, { threshold: 0.5 }); // Si attiva quando vede metà del footer
-
-    // Diciamo al sensore di guardare il footer
-    observer.observe(document.querySelector('footer'));
-
+        observer.observe(document.querySelector('footer'));
     </script>
-
 </body>
 </html>
-
-
-
-
-
