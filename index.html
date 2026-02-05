@@ -21,12 +21,12 @@
 
     <script>
         // --- CONFIGURAZIONE ---
-        const numeroTotaleFoto = 12; // <--- CAMBIA QUESTO NUMERO con quante foto hai caricato
+        const numeroTotaleFoto = 80; // <--- CAMBIA QUESTO NUMERO con quante foto hai caricato
         const contenitore = document.getElementById('photo-stream');
 
         for (let i = 1; i <= numeroTotaleFoto; i++) {
             const img = document.createElement('img');
-            img.src = `foto${i}.jpg`; // Prende foto1.jpg, foto2.jpg, ecc.
+            img.src = `foto (${i}).jpg`; // Prende foto1.jpg, foto2.jpg, ecc.
             img.alt = `Foto di laurea ${i}`;
             img.loading = "lazy"; // Carica la foto solo quando stai per vederla (sito più veloce!)
             contenitore.appendChild(img);
@@ -35,5 +35,6 @@
 
 </body>
 </html>
+
 
 
