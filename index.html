@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Il Nostro Matrimonio</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,6 +15,9 @@
             font-family: 'Montserrat', sans-serif; 
             color: #4a4a4a;
             background-color: #fff;
+            /* Blocca lo scrolling della pagina intera per far funzionare lo snap */
+            height: 100svh; 
+            width: 100%;
         }
 
         .scroll-container {
@@ -39,15 +42,62 @@
             position: relative;
         }
 
-        /* Tipografia */
-        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #5d5d5d; margin-bottom: 10px; }
+        /* Tipografia Base */
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 10px; }
         h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #8d7d77; margin-bottom: 20px; }
         h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; color: #aaa; }
         p { font-size: 1.05rem; line-height: 1.7; margin-bottom: 15px; }
         .data { font-size: 1.2rem; letter-spacing: 3px; margin-top: 10px; }
 
-        /* Sezioni - Colori Alternati */
-        .hero { background-color: #fdfaf7; }
+        /* =========================================
+           SEZIONE 1: HERO CON FOTO DI SFONDO
+           Scegli la VERSIONE A o B sotto.
+           ========================================= */
+
+        /* --- VERSIONE A: Foto Scura -> Testo Bianco (Consigliata) --- */
+        .hero { 
+            background-image: 
+                /* Questo crea un velo scuro (50% nero) sopra la foto per far leggere il testo */
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                /* Inserisci qui il nome esatto della tua immagine */
+                url('sfondo1pagina.jpeg'); 
+            
+            background-size: cover;          /* Copre tutta la slide */
+            background-position: center;     /* Centra la foto */
+            background-repeat: no-repeat;
+            color: white;                    /* Testo bianco */
+        }
+
+        /* Sovrascrivi i colori specifici dei titoli solo per la hero scura */
+        .hero h1 { color: white; }
+        .hero h3 { color: rgba(255,255,255,0.7); }
+        .hero .scroll-hint { color: white; opacity: 0.8; }
+
+
+        /* --- VERSIONE B: Foto Chiara -> Testo Scuro --- 
+           Rimuovi i commenti (/*) sotto e commenta la Versione A sopra se la tua foto è molto chiara
+        */
+        /*
+        .hero { 
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+                url('sfondo1pagina.jpeg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #4a4a4a;
+        }
+        .hero h1 { color: #5d5d5d; }
+        .hero h3 { color: #aaa; }
+        .hero .scroll-hint { color: #4a4a4a; opacity: 0.6; }
+        */
+
+        /* =========================================
+           FINE SEZIONE HERO
+           ========================================= */
+
+
+        /* Altre Sezioni - Colori Alternati */
         .messa { background-color: #ffffff; }
         .ricevimento { background-color: #f9f9f9; }
         .regalo { background-color: #ffffff; }
@@ -84,7 +134,6 @@
             bottom: 30px;
             font-size: 0.7rem;
             letter-spacing: 2px;
-            opacity: 0.5;
             animation: bounce 2s infinite;
         }
 
@@ -96,40 +145,28 @@
     <div class="scroll-container">
         
         <section class="slide hero">
-            <h3>Il nostro matrimonio</h3>
             <h1>Marco & Giulia</h1>
-            <p class="data">15 GIUGNO 2026</p>
-            <div class="scroll-hint">SCORRI ↓</div>
+            <p>15 Luglio 2026</p>
+            <div class="scroll-hint">Scorri verso il basso ↓</div>
         </section>
 
-        <section class="slide messa">
-            <h2>La Cerimonia</h2>
-            <p>Saremo felici di vedervi alle ore <b>11:00</b> per la celebrazione del nostro matrimonio.</p>
-            <p><b>Chiesa di San Salvatore</b><br>Piazza del Duomo, 1</p>
-            <a href="https://maps.google.com" target="_blank" class="btn btn-maps">📍 Apri su Maps</a>
+        <section class="slide story">
+            <h2>La nostra storia</h2>
+            <p>Dall'incontro a Roma fino a oggi. <br> Non vediamo l'ora di festeggiare il nostro nuovo inizio con voi.</p>
         </section>
 
-        <section class="slide ricevimento">
-            <h2>Il Ricevimento</h2>
-            <p>A seguire festeggeremo insieme presso</p>
-            <p><b>Villa Bella Vista</b><br>Via panoramica, 42</p>
-            <a href="https://maps.google.com" target="_blank" class="btn btn-maps">📍 Naviga verso la Villa</a>
-        </section>
-
-        <section class="slide regalo">
-            <h2>Un Pensiero per noi</h2>
-            <p>Il regalo più grande è la vostra presenza. Se però desiderate aiutarci a realizzare il nostro sogno di una nuova casa...</p>
-            <div class="iban-box">
-                IT 00 X 00000 00000 000000000000
-            </div>
-            <p style="font-size: 0.8rem; margin-top: 10px;">Intestato a Marco e Giulia</p>
+        <section class="slide details">
+            <h2>Il Grande Giorno</h2>
+            <p><strong>Cerimonia:</strong> Ore 11:30<br>Basilica di Santa Maria</p>
+            <br>
+            <p><strong>Ricevimento:</strong> Villa BellaVista<br>Via dei Fiori 12, Roma</p>
+            <a href="https://maps.google.com" target="_blank" style="margin-top: 15px; display: block; color: #8d7d77;">Apri Mappa</a>
         </section>
 
         <section class="slide rsvp">
-            <h2>Conferma</h2>
-            <p>Vi chiediamo gentilmente di darci conferma entro il <b>15 Maggio</b> per aiutarci con l'organizzazione.</p>
-            <a href="https://forms.gle/IL_TUO_LINK" target="_blank" class="btn">CONFERMA QUI</a>
-            <p style="margin-top: 20px; font-size: 0.9rem; font-style: italic;">Non dimenticare di segnalare eventuali allergie!</p>
+            <h2>Ci sarai?</h2>
+            <p>Ti chiediamo gentilmente di confermare la tua presenza entro il 1° Giugno.</p>
+            <a href="https://forms.gle/IL_TUO_ID" target="_blank" class="btn-rsvp">CONFERMA ORA</a>
         </section>
 
     </div>
