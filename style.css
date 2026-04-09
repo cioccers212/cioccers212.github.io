@@ -110,71 +110,59 @@ p {
     font-weight: 300;
 }
 
-/* =========================================
-   2. MESSA (sfondo2pagina.jpeg - Mezzaluna)
-   ========================================= */
-/* =========================================
-   2. MESSA (Ottimizzazione Curva Mobile)
-   ========================================= */
-.messa {
-    flex-direction: row;
-    background-color: #fff;
-    align-items: center;
-}
-
-.messa-image-container {
-    width: 45%; /* Leggermente più larga per dare respiro alla foto */
-    height: 100svh;
-    position: relative;
-    
-    /* CURVA PIÙ PROFONDA: 
-       Aumentiamo il raggio orizzontale per renderla più tonda anche su schermi stretti */
-    clip-path: ellipse(120% 70% at 0% 50%);
-    -webkit-clip-path: ellipse(120% 70% at 0% 50%);
-    
-    background-color: #f4f1ee;
-}
-
-.messa-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    
-    /* FOCUS SULL'IMMAGINE: 
-       'center' cerca di tenere il centro della foto visibile. 
-       Se vedi che taglia i volti, prova '20% center' o '80% center' */
-    object-position: center; 
-    
+/* --- MESSA PARTE 1: Solo Immagine --- */
+.messa-foto {
     background-image: url('sfondo2pagina.jpeg');
     background-size: cover;
     background-position: center;
+    justify-content: flex-end; /* Mette l'indicatore in basso */
+    align-items: center;
+    color: white;
 }
 
-.messa-text-container {
-    width: 55%;
-    padding: 40px 15px 40px 25px; /* Padding calibrato per non sovrapporsi alla curva */
+/* --- MESSA PARTE 2: Testo con Sfondo Sfocato --- */
+.messa-testo {
+    position: relative;
+    background-image: url('sfondo2pagina.jpeg'); /* Stessa foto */
+    background-size: cover;
+    background-position: center;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    text-align: left;
-    z-index: 2; /* Assicura che il testo sia sopra eventuali sbordamenti */
+    align-items: center;
+    text-align: center;
+    padding: 30px;
 }
 
-/* Fix per schermi molto stretti (es. iPhone SE o Mini) */
-@media (max-width: 370px) {
-    .messa-image-container {
-        width: 40%;
-        clip-path: ellipse(140% 60% at 0% 50%); /* Curva ancora più estrema */
-    }
-    .messa-text-container {
-        width: 60%;
-        padding-left: 15px;
-    }
-    .messa-text-container h2 {
-        font-size: 1.5rem;
-    }
+/* Lo strato che crea la sfocatura */
+.sfondo-sfocato {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4); /* Velo chiaro */
+    backdrop-filter: blur(8px); /* EFFETTO SFOCATURA */
+    -webkit-backdrop-filter: blur(8px); /* Per iPhone/Safari */
+    z-index: 1;
 }
-/* =========================================
+
+/* Il testo sopra la sfocatura */
+.testo-overlay {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.7); /* Box leggermente visibile per leggere meglio */
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 320px;
+}
+
+.testo-overlay h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #5d4037;
+}/* =========================================
    3. RICEVIMENTO (sfondo3pagina.jpeg)
    ========================================= */
 .ricevimento {
