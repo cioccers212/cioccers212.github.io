@@ -3,30 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Il Nostro Matrimonio</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Matrimonio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Montserrat&display=swap" rel="stylesheet">
 
     <style>
-        /* Reset Generale */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         body, html { 
+            height: 100%; width: 100%; 
             overflow: hidden; 
-            font-family: 'Montserrat', sans-serif; 
-            color: #4a4a4a;
-            background-color: #fff;
-            height: 100svh;
-            width: 100%;
+            background-color: #222; /* Se vedi nero, il codice funziona ma non trova le foto */
         }
 
-        /* Motore Scroll Snap */
         .scroll-container {
             width: 100%;
             height: 100svh;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -34,126 +27,60 @@
             width: 100%;
             height: 100svh;
             scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
             position: relative;
-            overflow: hidden;
-        }
-
-        /* Tipografia */
-        h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 5px; }
-        h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #8d7d77; margin-bottom: 15px; }
-        h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; color: #aaa; }
-        p { font-size: 1rem; line-height: 1.6; margin-bottom: 15px; }
-
-        /* Componenti UI */
-        .btn {
-            display: inline-block;
-            padding: 14px 25px;
-            background-color: #8d7d77;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-align: center;
-        }
-        .btn-maps { background-color: #ebe0d8; color: #8d7d77; margin-top: 10px; }
-
-        /* --- 1. HOME (Testo in alto) --- */
-        .hero { 
-            background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('sfondo1pagina.jpeg'); 
-            background-size: cover;
-            background-position: center;
-            justify-content: flex-start; 
-            padding-top: 15svh; 
-            text-align: center;
-            color: white;
-        }
-        .hero h1 { color: white; }
-        .hero .data { font-size: 1.2rem; letter-spacing: 3px; font-weight: 300; }
-
-        /* --- 2. MESSA (Mezzaluna a sinistra) --- */
-        .messa {
-            flex-direction: row;
-            background-color: #fff;
-        }
-        .messa-image-container {
-            width: 38%;
-            height: 100svh;
-            clip-path: ellipse(100% 100% at 0% 50%);
-            -webkit-clip-path: ellipse(100% 100% at 0% 50%);
-        }
-        .messa-img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            background-image: url('sfondo2pagina.jpeg'); 
-            background-size: cover;
-            background-position: center;
-        }
-        .messa-text-container {
-            width: 62%;
-            padding: 40px 20px 40px 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            text-align: left;
-        }
-
-        /* --- 3. RICEVIMENTO (Sfondo opzionale o colore) --- */
-        .ricevimento { 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
-            background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('sfondo3pagina.jpeg');
+            align-items: center;
+            text-align: center;
             background-size: cover;
             background-position: center;
-            padding: 40px;
+            background-repeat: no-repeat;
         }
 
-        /* --- 4. REGALO --- */
-        .regalo { 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
-            background-color: #fff; 
-            padding: 40px;
-        }
-        .iban-box {
-            background: #fdfaf7;
-            padding: 20px;
-            border: 1px dashed #d1c4be;
-            font-family: monospace;
-            font-size: 1rem;
-            word-break: break-all;
-            margin: 15px 0;
-            color: #5d4037;
+        /* --- SEZIONI CON IMMAGINI --- */
+        
+        .hero { 
+            /* Se non vedi la foto, controlla che si chiami esattamente così */
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('sfondo1pagina.jpeg'); 
+            background-color: #fdf6f0; /* Colore di riserva */
+            justify-content: flex-start;
+            padding-top: 15svh;
+            color: white;
         }
 
-        /* --- 5. RSVP --- */
-        .rsvp { 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
-            background-image: linear-gradient(rgba(244, 241, 238, 0.8), rgba(244, 241, 238, 0.8)), url('sfondo5pagina.jpeg');
-            background-size: cover;
-            background-position: center;
-            padding: 40px;
+        .messa-foto { 
+            background-image: url('sfondo2pagina.jpeg'); 
+            background-color: #e8eaf6; 
         }
 
-        /* Animazione Scroll */
-        .scroll-hint {
+        .messa-testo { 
+            background-image: url('sfondo2pagina.jpeg'); 
+            background-color: #e8eaf6; 
+        }
+
+        /* Effetto Sfocatura */
+        .sfondo-sfocato {
             position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            opacity: 0.8;
-            animation: bounce 2s infinite;
+            top: 0; left: 0; width: 100%; height: 100%;
+            backdrop-filter: blur(15px) brightness(0.8);
+            -webkit-backdrop-filter: blur(15px) brightness(0.8);
+            background-color: rgba(255,255,255,0.2);
         }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} }
+
+        .testo-overlay {
+            position: relative;
+            z-index: 10;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 350px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; }
+        .btn { display: inline-block; padding: 12px 20px; background: #8d7d77; color: white; text-decoration: none; border-radius: 5px; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -161,48 +88,21 @@
     <div class="scroll-container">
         
         <section class="slide hero">
-            <h3>Il nostro matrimonio</h3>
             <h1>Marco & Giulia</h1>
-            <p class="data">15 GIUGNO 2026</p>
-            <div class="scroll-hint">SCORRI ↓</div>
+            <p>15 GIUGNO 2026</p>
         </section>
 
         <section class="slide messa-foto">
-    <div class="scroll-hint">Dettagli Cerimonia ↓</div>
-</section>
-
-<section class="slide messa-testo">
-    <div class="sfondo-sfocato"></div>
-    <div class="testo-overlay">
-        <h2>La Cerimonia</h2>
-        <h3>S. Messa</h3>
-        <p>Saremo felici di avervi con noi alle ore <strong>11:00</strong>.</p>
-        <p><strong>Chiesa di San Salvatore</strong><br>Piazza del Duomo, 1</p>
-        <a href="https://maps.google.com" target="_blank" class="btn btn-maps">📍 Apri su Maps</a>
-    </div>
-</section>
-
-        <section class="slide ricevimento">
-            <h2>Il Ricevimento</h2>
-            <p>Festeggeremo insieme a partire dalle ore 13:00 presso</p>
-            <p><strong>Villa Bella Vista</strong><br>Via panoramica, 42</p>
-            <a href="https://maps.google.com" target="_blank" class="btn btn-maps">📍 Naviga alla Villa</a>
+            <p style="color:white; background:rgba(0,0,0,0.4); padding:5px;">Scorri per i dettagli ↓</p>
         </section>
 
-        <section class="slide regalo">
-            <h2>Un Pensiero per noi</h2>
-            <p>La vostra presenza è il dono più grande. Se desiderate farci un pensiero, potete aiutarci a realizzare il nostro viaggio di nozze:</p>
-            <div class="iban-box">
-                IT 00 X 00000 00000 000000000000
+        <section class="slide messa-testo">
+            <div class="sfondo-sfocato"></div>
+            <div class="testo-overlay">
+                <h2 style="font-family:'Playfair Display'; margin-bottom:10px;">La Cerimonia</h2>
+                <p>Ore 11:00 - Chiesa di San Salvatore</p>
+                <a href="#" class="btn">📍 Mappa</a>
             </div>
-            <p style="font-size: 0.8rem; color: #888;">Intestato a Marco e Giulia</p>
-        </section>
-
-        <section class="slide rsvp">
-            <h2>Ci sarete?</h2>
-            <p>Vi chiediamo la cortesia di confermare entro il <b>15 Maggio</b>.</p>
-            <a href="https://forms.gle/IL_TUO_LINK" target="_blank" class="btn">CONFERMA QUI</a>
-            <p style="margin-top: 25px; font-size: 0.8rem; font-style: italic;">Segnalaci allergie o intolleranze nel modulo!</p>
         </section>
 
     </div>
