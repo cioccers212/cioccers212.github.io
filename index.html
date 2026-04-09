@@ -5,33 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Il Nostro Matrimonio</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Reset e Setup Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html { 
+            overflow: hidden; 
+            font-family: 'Montserrat', sans-serif; 
+            color: #4a4a4a;
+            background-color: #fff;
         }
 
-        body, html {
-            overflow: hidden; /* Evita il rimbalzo su alcuni browser */
-            font-family: 'Montserrat', sans-serif;
-            color: #444;
-        }
-
-        /* Il Contenitore Vertical Scroll Snap */
         .scroll-container {
             width: 100%;
-            height: 100svh; /* Altezza dinamica per mobile */
+            height: 100svh;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Stile comune per le Slide */
         .slide {
             width: 100%;
             height: 100svh;
@@ -41,69 +35,60 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 25px;
+            padding: 40px 30px;
             position: relative;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
+        /* Tipografia */
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: #5d5d5d; margin-bottom: 10px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #8d7d77; margin-bottom: 20px; }
+        h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; color: #aaa; }
+        p { font-size: 1.05rem; line-height: 1.7; margin-bottom: 15px; }
+        .data { font-size: 1.2rem; letter-spacing: 3px; margin-top: 10px; }
 
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
+        /* Sezioni - Colori Alternati */
+        .hero { background-color: #fdfaf7; }
+        .messa { background-color: #ffffff; }
+        .ricevimento { background-color: #f9f9f9; }
+        .regalo { background-color: #ffffff; }
+        .rsvp { background-color: #f4f1ee; }
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            max-width: 400px;
-        }
-
-        /* Colori e Sfondi Personalizzati */
-        .hero { background-color: #fdf6f0; } /* Crema */
-        .story { background-color: #ffffff; }
-        .details { background-color: #f4f7f6; }
-        .rsvp { background-color: #e9edee; }
-
-        /* Pulsante RSVP */
-        .btn-rsvp {
-            margin-top: 30px;
-            padding: 15px 35px;
+        /* Pulsanti e Link */
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 14px 30px;
             background-color: #8d7d77;
             color: white;
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+        
+        .btn-maps { background-color: #ebe0d8; color: #8d7d77; margin-bottom: 10px; }
+
+        .iban-box {
+            background: #fdfaf7;
+            padding: 20px;
+            border: 1px dashed #d1c4be;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            word-break: break-all;
         }
 
-        .btn-rsvp:active {
-            transform: scale(0.95);
-        }
-
-        /* Freccetta indicatrice per scorrere */
         .scroll-hint {
             position: absolute;
             bottom: 30px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
+            font-size: 0.7rem;
             letter-spacing: 2px;
-            opacity: 0.6;
+            opacity: 0.5;
             animation: bounce 2s infinite;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
     </style>
 </head>
 <body>
@@ -111,28 +96,40 @@
     <div class="scroll-container">
         
         <section class="slide hero">
-            <h1>Babbu e Cochi</h1>
-            <p>12 Settembre 2026</p>
-            <div class="scroll-hint">Scorri verso il basso ↓</div>
+            <h3>Il nostro matrimonio</h3>
+            <h1>Marco & Giulia</h1>
+            <p class="data">15 GIUGNO 2026</p>
+            <div class="scroll-hint">SCORRI ↓</div>
         </section>
 
-        <section class="slide story">
-            <h2>S. Messa</h2>
-            <p>Dall'incontro a Roma fino a oggi. <br> Non vediamo l'ora di festeggiare il nostro nuovo inizio con voi.</p>
+        <section class="slide messa">
+            <h2>La Cerimonia</h2>
+            <p>Saremo felici di vedervi alle ore <b>11:00</b> per la celebrazione del nostro matrimonio.</p>
+            <p><b>Chiesa di San Salvatore</b><br>Piazza del Duomo, 1</p>
+            <a href="https://maps.google.com" target="_blank" class="btn btn-maps">📍 Apri su Maps</a>
         </section>
 
-        <section class="slide details">
-            <h2>Il Grande Giorno</h2>
-            <p><strong>Cerimonia:</strong> Ore 11:30<br>Basilica di Santa Maria</p>
-            <br>
-            <p><strong>Ricevimento:</strong> Villa BellaVista<br>Via dei Fiori 12, Roma</p>
-            <a href="https://maps.google.com" target="_blank" style="margin-top: 15px; display: block; color: #8d7d77;">Apri Mappa</a>
+        <section class="slide ricevimento">
+            <h2>Il Ricevimento</h2>
+            <p>A seguire festeggeremo insieme presso</p>
+            <p><b>Villa Bella Vista</b><br>Via panoramica, 42</p>
+            <a href="https://maps.google.com" target="_blank" class="btn btn-maps">📍 Naviga verso la Villa</a>
+        </section>
+
+        <section class="slide regalo">
+            <h2>Un Pensiero per noi</h2>
+            <p>Il regalo più grande è la vostra presenza. Se però desiderate aiutarci a realizzare il nostro sogno di una nuova casa...</p>
+            <div class="iban-box">
+                IT 00 X 00000 00000 000000000000
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Intestato a Marco e Giulia</p>
         </section>
 
         <section class="slide rsvp">
-            <h2>Ci sarai?</h2>
-            <p>Ti chiediamo gentilmente di confermare la tua presenza entro il 1° Giugno.</p>
-            <a href="https://forms.gle/IL_TUO_ID" target="_blank" class="btn-rsvp">CONFERMA ORA</a>
+            <h2>Conferma</h2>
+            <p>Vi chiediamo gentilmente di darci conferma entro il <b>15 Maggio</b> per aiutarci con l'organizzazione.</p>
+            <a href="https://forms.gle/IL_TUO_LINK" target="_blank" class="btn">CONFERMA QUI</a>
+            <p style="margin-top: 20px; font-size: 0.9rem; font-style: italic;">Non dimenticare di segnalare eventuali allergie!</p>
         </section>
 
     </div>
