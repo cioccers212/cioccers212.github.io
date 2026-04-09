@@ -11,3 +11,15 @@
   margin-top: 20px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
+.hero { 
+    /* ... (mantieni le tue impostazioni per l'immagine di sfondo) ... */
+    
+    justify-content: flex-start !important; /* Sposta il contenuto in alto */
+    padding-top: 15svh !important;          /* Regola questa percentuale per alzare o abbassare i nomi */
+}
+
+/* Opzionale: se vuoi distanziare i nomi dalla data in modo diverso */
+.hero h1 {
+    margin-top: 10px;
+    font-size: 3rem; /* Leggermente più grande per dare enfasi */
+}
