@@ -1,22 +1,22 @@
 /* =========================================
-   CONFIGURAZIONE GENERALE
+   CONFIGURAZIONE STRUTTURALE
    ========================================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
 }
 
-body, html {
-    overflow: hidden; /* Necessario per il controllo dello scroll snap */
+body, html { 
+    height: 100%; 
+    width: 100%; 
+    overflow: hidden; 
+    background-color: #fdfaf7;
     font-family: 'Montserrat', sans-serif;
-    color: #4a4a4a;
-    background-color: #fff;
-    height: 100svh;
-    width: 100%;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Contenitore principale Scroll Snap */
+/* Contenitore Scroll Snap */
 .scroll-container {
     width: 100%;
     height: 100svh;
@@ -24,216 +24,158 @@ body, html {
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    position: relative;
+    z-index: 2; /* Sopra lo sfondo fisso */
 }
 
-/* Regole base per ogni slide */
+/* Ogni singola slide */
 .slide {
     width: 100%;
     height: 100svh;
     scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
+    scroll-snap-stop: always; /* Obbliga a fermarsi su ogni slide */
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 }
 
-/* Tipografia */
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    margin-bottom: 5px;
-}
-
-h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: #8d7d77;
-    margin-bottom: 15px;
-}
-
-h3 {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    color: #aaa;
-}
-
-p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-/* Pulsanti */
-.btn {
-    display: inline-block;
-    padding: 14px 25px;
-    background-color: #8d7d77;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-align: center;
-    transition: opacity 0.3s ease;
-}
-
-.btn:active {
-    opacity: 0.8;
-}
-
-.btn-maps {
-    background-color: #ebe0d8;
-    color: #8d7d77;
-    margin-top: 10px;
-}
-
 /* =========================================
-   1. HOME (sfondo1pagina.jpeg)
+   IL TRUCCO DELLO SFONDO FISSO (Slide 2 e 3)
    ========================================= */
-.hero {
-    background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('sfondo1pagina.jpeg');
-    background-size: cover;
-    background-position: center;
-    justify-content: flex-start; /* Testo in alto */
-    padding-top: 15svh; /* Distanza dal bordo superiore */
-    text-align: center;
-    color: white;
-}
-
-.hero h1 { color: white; }
-
-.hero .data {
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    font-weight: 300;
-}
-
-/* --- MESSA PARTE 1: Solo Immagine --- */
-.messa-foto {
+.messa-background {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
     background-image: url('sfondo2pagina.jpeg');
     background-size: cover;
     background-position: center;
-    justify-content: flex-end; /* Mette l'indicatore in basso */
-    align-items: center;
-    color: white;
+    z-index: 1; /* Sta dietro a tutto il resto */
 }
 
-/* --- MESSA PARTE 2: Testo con Sfondo Sfocato --- */
-.messa-testo {
-    position: relative;
-    background-image: url('sfondo2pagina.jpeg'); /* Stessa foto */
+/* =========================================
+   STILE DELLE SINGOLE SEZIONI
+   ========================================= */
+
+/* 1. HOME - Copre lo sfondo fisso */
+.hero {
+    z-index: 10; 
+    background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('sfondo1pagina.jpeg');
     background-size: cover;
     background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: white;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 15svh;
     text-align: center;
-    padding: 30px;
 }
 
-/* Lo strato che crea la sfocatura */
-.sfondo-sfocato {
+/* 2. MESSA FOTO - Trasparente per mostrare la foto fissa nitida */
+.messa-foto-vuota {
+    background: transparent; 
+}
+
+/* 3. MESSA INFO - Trasparente, ma contiene il filtro sfocatura */
+.messa-info {
+    background: transparent;
+}
+
+/* Il velo che sfoca la foto fissa al passaggio */
+.blur-layer {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.4); /* Velo chiaro */
-    backdrop-filter: blur(8px); /* EFFETTO SFOCATURA */
-    -webkit-backdrop-filter: blur(8px); /* Per iPhone/Safari */
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Effetto Vetro Sfocato */
+    backdrop-filter: blur(12px) brightness(0.85);
+    -webkit-backdrop-filter: blur(12px) brightness(0.85);
+    background-color: rgba(255, 255, 255, 0.15);
     z-index: 1;
 }
 
-/* Il testo sopra la sfocatura */
+/* Box bianco con i dettagli */
 .testo-overlay {
     position: relative;
     z-index: 2;
-    background: rgba(255, 255, 255, 0.7); /* Box leggermente visibile per leggere meglio */
-    padding: 30px 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 320px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 35px 25px;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-.testo-overlay h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #5d4037;
-}/* =========================================
-   3. RICEVIMENTO (sfondo3pagina.jpeg)
-   ========================================= */
+/* 4. RICEVIMENTO - Copre lo sfondo fisso della messa */
 .ricevimento {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* Velo chiaro per rendere leggibile il testo sopra l'immagine */
-    background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('sfondo3pagina.jpeg');
+    z-index: 10;
+    background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('sfondo3pagina.jpeg');
     background-size: cover;
     background-position: center;
-    padding: 40px;
+    text-align: center;
+    flex-direction: column;
+}
+
+/* 5. REGALO & RSVP */
+.regalo {
+    z-index: 10;
+    background: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.rsvp {
+    z-index: 10;
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo5pagina.jpeg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
 }
 
 /* =========================================
-   4. REGALO (Colore solido)
+   ELEMENTI UI E TIPOGRAFIA
    ========================================= */
-.regalo {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: #fff;
-    padding: 40px;
+h1 { font-family: 'Playfair Display', serif; font-size: 3rem; }
+h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 10px; color: #5d4037; }
+
+.btn { 
+    display: inline-block; 
+    padding: 14px 28px; 
+    background: #8d7d77; 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 8px; 
+    margin-top: 20px; 
+    font-weight: 600; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .iban-box {
-    background: #fdfaf7;
-    padding: 20px;
+    background: #fdfaf7; 
+    padding: 20px; 
     border: 1px dashed #d1c4be;
-    font-family: monospace;
+    font-family: monospace; 
+    margin: 20px 0; 
+    word-break: break-all; 
     font-size: 1.1rem;
-    word-break: break-all;
-    margin: 15px 0;
-    color: #5d4037;
+    color: #333;
 }
 
-/* =========================================
-   5. RSVP (sfondo5pagina.jpeg)
-   ========================================= */
-.rsvp {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-image: linear-gradient(rgba(244, 241, 238, 0.8), rgba(244, 241, 238, 0.8)), url('sfondo5pagina.jpeg');
-    background-size: cover;
-    background-position: center;
-    padding: 40px;
-}
-
-/* =========================================
-   ANIMAZIONI E INDICATORI
-   ========================================= */
-.scroll-hint {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.7rem;
-    letter-spacing: 2px;
+.hint { 
+    position: absolute; 
+    bottom: 30px; 
+    font-size: 0.7rem; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    color: white; 
     opacity: 0.8;
-    animation: bounce 2s infinite;
+    animation: bounce 2s infinite; 
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-    40% { transform: translateY(-10px) translateX(-50%); }
-    60% { transform: translateY(-5px) translateX(-50%); }
-}
-
-/* Ottimizzazione per schermi molto piccoli */
-@media (max-width: 380px) {
-    h1 { font-size: 2.5rem; }
-    h2 { font-size: 1.8rem; }
-    .messa-text-container { padding: 20px 15px; }
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
 }
