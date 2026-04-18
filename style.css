@@ -52,9 +52,10 @@ body, html {
 .sticky-wrapper {
     height: 200svh;
     position: relative;
-    /* Forza l'isolamento della sezione per evitare sovrapposizioni su iPhone */
     z-index: 5;
     overflow: visible;
+    /* FIX iPHONE: Impedisce alla sfocatura di uscire dai bordi dello sfondo */
+    isolation: isolate; 
 }
 
 .sticky-bg-group {
@@ -62,36 +63,32 @@ body, html {
     top: 0;
     width: 100%;
     height: 100svh;
-    z-index: 1;
+    z-index: 1; /* Deve stare dietro al testo */
     overflow: hidden;
     /* Ottimizzazione hardware Safari */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
 }
 
-/* Sfondi Messa */
-.bg-messa-sharp { 
-    background: url('sfondo2pagina.jpeg') center center / cover no-repeat; 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; 
-    will-change: opacity;
-}
-.bg-messa-blur { 
-    background: url('sfondo2pagina.jpeg') center center / cover no-repeat; 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; 
-    filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); 
+/* Sfondi Messa e Ricevimento */
+.bg-messa-sharp, .bg-messa-blur, 
+.bg-ricevimento-sharp, .bg-ricevimento-blur {
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
-/* Sfondi Ricevimento */
-.bg-ricevimento-sharp { 
-    background: url('sfondo3pagina.jpeg') center center / cover no-repeat; 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; 
-    will-change: opacity;
-}
-.bg-ricevimento-blur { 
-    background: url('sfondo3pagina.jpeg') center center / cover no-repeat; 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; 
-    filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); 
-}
+.bg-messa-sharp { background-image: url('sfondo2pagina.jpeg'); z-index: 2; will-change: opacity; }
+.bg-messa-blur { background-image: url('sfondo2pagina.jpeg'); z-index: 1; filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); }
+
+.bg-ricevimento-sharp { background-image: url('sfondo3pagina.jpeg'); z-index: 2; will-change: opacity; }
+.bg-ricevimento-blur { background-image: url('sfondo3pagina.jpeg'); z-index: 1; filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); }
 
 /* Slide interne trasparenti */
 .inner-slide {
@@ -105,15 +102,16 @@ body, html {
     align-items: center;
     z-index: 10;
     background: transparent;
+    pointer-events: none; /* Lascia passare il tocco allo sfondo se non c'è testo */
 }
 
 /* Margine per allineare le slide interne */
 .pull-up { margin-top: -100svh; }
 
-/* --- BOX TESTO (CENTRATO) --- */
+/* --- BOX TESTO (IL PUNTO CRITICO PER iPHONE) --- */
 .testo-overlay {
     position: relative;
-    z-index: 100; /* Elevato per non essere "mangiato" dagli sfondi */
+    z-index: 9999 !important; /* Forza il testo sopra a tutto */
     background: rgba(255, 255, 255, 0.94); 
     padding: 40px 25px;
     border-radius: 20px;
@@ -121,13 +119,14 @@ body, html {
     max-width: 350px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: center;
+    pointer-events: auto; /* Riabilita i click sui pulsanti */
+    /* FIX iPHONE: Sposta fisicamente il box avanti per non essere coperto dal blur */
+    transform: translateZ(10px); 
+    -webkit-transform: translateZ(10px);
 }
 
 /* --- SEZIONI FINALI --- */
-.regalo { 
-    background: #fff; 
-    z-index: 30; 
-}
+.regalo { background: #fff; z-index: 30; }
 .iban-box { 
     background: #fdfaf7; 
     padding: 20px; 
