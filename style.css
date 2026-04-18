@@ -1,181 +1,103 @@
-/* =========================================
-   CONFIGURAZIONE STRUTTURALE
-   ========================================= */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
+/* --- RESET E BASE --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body, html { height: 100%; width: 100%; overflow: hidden; background-color: #fdfaf7; font-family: 'Montserrat', sans-serif; }
 
-body, html { 
-    height: 100%; 
-    width: 100%; 
-    overflow: hidden; 
-    background-color: #fdfaf7;
-    font-family: 'Montserrat', sans-serif;
-    -webkit-font-smoothing: antialiased;
-}
-
-/* Contenitore Scroll Snap */
 .scroll-container {
     width: 100%;
     height: 100svh;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    position: relative;
-    z-index: 2; /* Sopra lo sfondo fisso */
 }
 
-/* Ogni singola slide */
 .slide {
     width: 100%;
     height: 100svh;
     scroll-snap-align: start;
-    scroll-snap-stop: always; /* Obbliga a fermarsi su ogni slide */
+    scroll-snap-stop: always;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    z-index: 10;
 }
 
-/* =========================================
-   IL TRUCCO DELLO SFONDO FISSO (Slide 2 e 3)
-   ========================================= */
-.messa-background {
-    position: fixed;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    background-image: url('sfondo2pagina.jpeg');
-    background-size: cover;
-    background-position: center;
-    z-index: 1; /* Sta dietro a tutto il resto */
-}
-
-/* =========================================
-   STILE DELLE SINGOLE SEZIONI
-   ========================================= */
-
-/* 1. HOME - Copre lo sfondo fisso */
+/* --- 1. HOME --- */
 .hero {
-    z-index: 10; 
-    background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('sfondo1pagina.jpeg');
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('sfondo1pagina.jpeg') center/cover;
     color: white;
     flex-direction: column;
     justify-content: flex-start;
     padding-top: 15svh;
-    text-align: center;
 }
 
-/* 2. MESSA FOTO - Trasparente per mostrare la foto fissa nitida */
-.messa-foto-vuota {
-    background: transparent; 
+/* --- IL GRUPPO "MESSA" (Il segreto è qui) --- */
+/* Creiamo un contenitore alto 2 pagine (200vh) */
+.messa-wrapper {
+    height: 200vh;
+    position: relative;
 }
 
-/* 3. MESSA INFO - Trasparente, ma contiene il filtro sfocatura */
-.messa-info {
-    background: transparent;
-}
-
-/* Il velo che sfoca la foto fissa al passaggio */
-.blur-layer {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    /* Effetto Vetro Sfocato */
-    backdrop-filter: blur(12px) brightness(0.85);
-    -webkit-backdrop-filter: blur(12px) brightness(0.85);
-    background-color: rgba(255, 255, 255, 0.15);
+/* Lo sfondo che resta fermo (STICKY) solo dentro il wrapper della messa */
+.messa-sticky-bg {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: url('sfondo2pagina.jpeg') center/cover;
     z-index: 1;
 }
 
-/* Box bianco con i dettagli */
+/* --- SLIDE 2: SOLO FOTO (Trasparente) --- */
+.messa-foto {
+    background: transparent;
+    z-index: 5;
+}
+
+/* --- SLIDE 3: INFO (Con Sfocatura) --- */
+.messa-info {
+    background: transparent;
+    z-index: 5;
+}
+
+.blur-layer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    backdrop-filter: blur(12px) brightness(0.8);
+    -webkit-backdrop-filter: blur(12px) brightness(0.8);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 .testo-overlay {
     position: relative;
-    z-index: 2;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 35px 25px;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.92); 
+    padding: 40px 25px;
     border-radius: 20px;
     width: 85%;
     max-width: 350px;
-    text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    
+    /* AGGIUNGI QUESTE RIGHE */
+    text-align: justify; 
+    hyphens: auto; /* Opzionale: aiuta a spezzare le parole lunghe per evitare spazi eccessivi */
 }
 
-/* 4. RICEVIMENTO - Copre lo sfondo fisso della messa */
+/* Mantieni i titoli centrati se preferisci un look più dinamico */
+.testo-overlay h2 {
+    text-align: center;
+    font-family: 'Playfair Display', serif; 
+    font-size: 2.2rem; 
+    margin-bottom: 15px; 
+    color: #8d7d77;
+}
+
+/* --- 4. RICEVIMENTO --- */
 .ricevimento {
+    background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('sfondo3pagina.jpeg') center/cover;
     z-index: 10;
-    background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('sfondo3pagina.jpeg');
-    background-size: cover;
-    background-position: center;
-    text-align: center;
-    flex-direction: column;
 }
 
-/* 5. REGALO & RSVP */
-.regalo {
-    z-index: 10;
-    background: white;
-    text-align: center;
-    padding: 40px 20px;
-}
-
-.rsvp {
-    z-index: 10;
-    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo5pagina.jpeg');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-}
-
-/* =========================================
-   ELEMENTI UI E TIPOGRAFIA
-   ========================================= */
-h1 { font-family: 'Playfair Display', serif; font-size: 3rem; }
-h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 10px; color: #5d4037; }
-
-.btn { 
-    display: inline-block; 
-    padding: 14px 28px; 
-    background: #8d7d77; 
-    color: white; 
-    text-decoration: none; 
-    border-radius: 8px; 
-    margin-top: 20px; 
-    font-weight: 600; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.iban-box {
-    background: #fdfaf7; 
-    padding: 20px; 
-    border: 1px dashed #d1c4be;
-    font-family: monospace; 
-    margin: 20px 0; 
-    word-break: break-all; 
-    font-size: 1.1rem;
-    color: #333;
-}
-
-.hint { 
-    position: absolute; 
-    bottom: 30px; 
-    font-size: 0.7rem; 
-    letter-spacing: 2px; 
-    text-transform: uppercase; 
-    color: white; 
-    opacity: 0.8;
-    animation: bounce 2s infinite; 
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-}
+/* --- ALTRI STILI --- */
+h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; }
+.btn { display: inline-block; padding: 12px 25px; background: #8d7d77; color: white; text-decoration: none; border-radius: 5px; margin-top: 15px; }
