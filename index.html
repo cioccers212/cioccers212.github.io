@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Babbu & Cochi - 29.09.2026</title>
+    <title>Babbu e Cochi - 29.09.2026</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -89,7 +89,7 @@
 
         .pull-up { margin-top: -100vh; }
 
-        /* --- BOX TESTO --- */
+        /* --- BOX TESTO (MODIFICATO PER CENTRATURA) --- */
         .testo-overlay {
             position: relative;
             z-index: 20;
@@ -99,18 +99,19 @@
             width: 85%;
             max-width: 350px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            text-align: center; /* FORZA CENTRATURA TESTO */
         }
 
         /* --- SEZIONI FINALI --- */
         .regalo { background: #fff; z-index: 30; }
-        .iban-box { background: #fdfaf7; padding: 20px; border: 1px dashed #d1c4be; font-family: monospace; margin: 20px 0; word-break: break-all; font-size: 1.1rem; }
+        .iban-box { background: #fdfaf7; padding: 20px; border: 1px dashed #d1c4be; font-family: monospace; margin: 20px 0; word-break: break-all; font-size: 1.1rem; text-align: center; }
         .rsvp { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo5pagina.jpeg') center/cover no-repeat; color: white; z-index: 30; }
 
         /* --- UTILITY --- */
-        h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; }
-        h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 15px; color: #8d7d77; }
-        .btn { display: inline-block; padding: 14px 28px; background: #8d7d77; color: white; text-decoration: none; border-radius: 8px; margin-top: 15px; font-weight: 600; }
-        .hint { position: absolute; bottom: 30px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: white; animation: bounce 2s infinite; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; text-align: center; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 15px; color: #8d7d77; text-align: center; }
+        .btn { display: inline-block; padding: 14px 28px; background: #8d7d77; color: white; text-decoration: none; border-radius: 8px; margin-top: 15px; font-weight: 600; text-align: center; }
+        .hint { position: absolute; bottom: 30px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: white; animation: bounce 2s infinite; text-align: center; width: 100%; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
     </style>
 </head>
@@ -162,8 +163,8 @@
 
         <section class="slide regalo">
             <h2>Un Pensiero</h2>
-            <div class="iban-box">IIT57K0347501605CC0012832005</div>
-            <p style="font-size: 0.8rem; color: #888;">Intestato a Luca Tosoni</p>
+            <div class="iban-box">IT57K0347501605CC0012832005</div>
+            <p style="font-size: 0.8rem; color: #888; text-align: center;">Intestato a Luca Tosoni</p>
         </section>
 
         <section class="slide rsvp">
@@ -177,18 +178,15 @@
     const scrollContainer = document.querySelector('.scroll-container');
     const windowHeight = window.innerHeight;
 
-    // Elementi Messa
     const messaSharp = document.getElementById('messa-sharp');
     const wrapperMessa = document.getElementById('wrapper-messa');
-
-    // Elementi Ricevimento
     const ricevimentoSharp = document.getElementById('ricevimento-sharp');
     const wrapperRicevimento = document.getElementById('wrapper-ricevimento');
 
     scrollContainer.addEventListener('scroll', () => {
         const currentScroll = scrollContainer.scrollTop;
 
-        // Gestione SFOCATURA MESSA
+        // SFOCATURA MESSA
         const startMessa = wrapperMessa.offsetTop;
         if (currentScroll >= startMessa && currentScroll <= startMessa + windowHeight) {
             let opacity = 1 - ((currentScroll - startMessa) / windowHeight * 3.0);
@@ -197,7 +195,7 @@
             messaSharp.style.opacity = 1;
         }
 
-        // Gestione SFOCATURA RICEVIMENTO
+        // SFOCATURA RICEVIMENTO
         const startRicevimento = wrapperRicevimento.offsetTop;
         if (currentScroll >= startRicevimento && currentScroll <= startRicevimento + windowHeight) {
             let opacity = 1 - ((currentScroll - startRicevimento) / windowHeight * 3.0);
