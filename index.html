@@ -89,8 +89,8 @@
     <div class="scroll-container">
         
         <section class="slide hero">
-            <h1>Babbu & Cochi</h1>
-            <p style="letter-spacing: 3px;">29 SETTEMBRE 2026</p>
+            <h1>Babbu e Cochi</h1>
+            <p style="letter-spacing: 3px;">12 SETTEMBRE 2026</p>
             <div class="hint">↓</div>
         </section>
 
@@ -144,42 +144,54 @@
     </div>
 
     <script>
-    const scrollContainer = document.querySelector('.scroll-container');
-    const messaSharp = document.getElementById('messa-sharp');
-    const wrapperMessa = document.getElementById('wrapper-messa');
-    const ricevimentoSharp = document.getElementById('ricevimento-sharp');
-    const wrapperRicevimento = document.getElementById('wrapper-ricevimento');
+const scroller = document.querySelector('.scroll-container');
+const messaSharp = document.getElementById('messa-sharp');
+const ricevimentoSharp = document.getElementById('ricevimento-sharp');
+const wrapperMessa = document.getElementById('wrapper-messa');
+const wrapperRicevimento = document.getElementById('wrapper-ricevimento');
 
-    scrollContainer.addEventListener('scroll', () => {
-        const currentScroll = scrollContainer.scrollTop;
-        const vh = window.innerHeight;
+scroller.addEventListener('scroll', () => {
+    const scrollTop = scroller.scrollTop;
+    const vh = window.innerHeight;
 
-        // Gestione MESSA (Sfocatura graduale)
-        const startMessa = wrapperMessa.offsetTop;
-        if (currentScroll >= startMessa && currentScroll <= startMessa + vh) {
-            let opacity = 1 - ((currentScroll - startMessa) / vh * 2.5);
-            messaSharp.style.opacity = Math.max(0, Math.min(1, opacity));
-        }
+    // --- LOGICA MESSA ---
+    const startMessa = wrapperMessa.offsetTop;
+    const endMessa = startMessa + vh;
 
-        // Gestione RICEVIMENTO (Sfocatura graduale + Fix per iPhone)
-        const startRicevimento = wrapperRicevimento.offsetTop;
-        if (currentScroll >= startRicevimento - vh) {
-            // Quando entriamo nel territorio del Ricevimento, abbassiamo lo z-index della Messa
-            if (currentScroll > startRicevimento - (vh/2)) {
-                wrapperMessa.style.zIndex = "1";
-                wrapperRicevimento.style.zIndex = "20";
-            } else {
-                wrapperMessa.style.zIndex = "20";
-                wrapperRicevimento.style.zIndex = "1";
-            }
+    if (scrollTop >= startMessa && scrollTop <= endMessa) {
+        // Calcola opacità: da 1 a 0 mentre scendi nella seconda metà del wrapper
+        let progress = (scrollTop - startMessa) / vh;
+        let opacity = 1 - (progress * 2.5); 
+        messaSharp.style.opacity = Math.max(0, Math.min(1, opacity));
+    } else if (scrollTop < startMessa) {
+        messaSharp.style.opacity = 1;
+    } else {
+        messaSharp.style.opacity = 0;
+    }
 
-            if (currentScroll >= startRicevimento && currentScroll <= startRicevimento + vh) {
-                let opacity = 1 - ((currentScroll - startRicevimento) / vh * 2.5);
-                ricevimentoSharp.style.opacity = Math.max(0, Math.min(1, opacity));
-            }
-        }
-    });
-    </script>
+    // --- LOGICA RICEVIMENTO ---
+    const startRicevimento = wrapperRicevimento.offsetTop;
+    const endRicevimento = startRicevimento + vh;
 
+    // Fix Z-index per iPhone che non rompe Android
+    if (scrollTop > startRicevimento - (vh / 2)) {
+        wrapperMessa.style.zIndex = "1";
+        wrapperRicevimento.style.zIndex = "20";
+    } else {
+        wrapperMessa.style.zIndex = "20";
+        wrapperRicevimento.style.zIndex = "1";
+    }
+
+    if (scrollTop >= startRicevimento && scrollTop <= endRicevimento) {
+        let progress = (scrollTop - startRicevimento) / vh;
+        let opacity = 1 - (progress * 2.5);
+        ricevimentoSharp.style.opacity = Math.max(0, Math.min(1, opacity));
+    } else if (scrollTop < startRicevimento) {
+        ricevimentoSharp.style.opacity = 1;
+    } else {
+        ricevimentoSharp.style.opacity = 0;
+    }
+});
+</script>
 </body>
 </html>
