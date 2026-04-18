@@ -1,6 +1,12 @@
-/* --- RESET E BASE --- */
+/* --- RESET E BASI --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { height: 100%; width: 100%; overflow: hidden; background-color: #fdfaf7; font-family: 'Montserrat', sans-serif; }
+body, html { 
+    height: 100%; 
+    width: 100%; 
+    overflow: hidden; 
+    background-color: #fdfaf7; 
+    font-family: 'Montserrat', sans-serif; 
+}
 
 .scroll-container {
     width: 100%;
@@ -24,50 +30,69 @@ body, html { height: 100%; width: 100%; overflow: hidden; background-color: #fdf
 
 /* --- 1. HOME --- */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('sfondo1pagina.jpeg') center/cover;
+    /* Centratura immagine home */
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('sfondo1pagina.jpeg') no-repeat center center / cover;
     color: white;
     flex-direction: column;
     justify-content: flex-start;
     padding-top: 15svh;
+    text-align: center;
 }
 
-/* --- IL GRUPPO "MESSA" (Il segreto è qui) --- */
-/* Creiamo un contenitore alto 2 pagine (200vh) */
-.messa-wrapper {
+/* --- WRAPPER PER SEZIONI CON SFONDO FISSO (MESSA E RICEVIMENTO) --- */
+.sticky-wrapper {
     height: 200vh;
     position: relative;
 }
 
-/* Lo sfondo che resta fermo (STICKY) solo dentro il wrapper della messa */
-.messa-sticky-bg {
+.sticky-bg-group {
     position: sticky;
     top: 0;
     width: 100%;
     height: 100vh;
-    background: url('sfondo2pagina.jpeg') center/cover;
     z-index: 1;
+    overflow: hidden;
 }
 
-/* --- SLIDE 2: SOLO FOTO (Trasparente) --- */
-.messa-foto {
+/* Immagini per la MESSA (sfondo2pagina) */
+.bg-messa-sharp { 
+    background: url('sfondo2pagina.jpeg') no-repeat center center / cover; 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; 
+}
+.bg-messa-blur { 
+    background: url('sfondo2pagina.jpeg') no-repeat center center / cover; 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; 
+    filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); 
+}
+
+/* Immagini per il RICEVIMENTO (sfondo3pagina) */
+.bg-ricevimento-sharp { 
+    background: url('sfondo3pagina.jpeg') no-repeat center center / cover; 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; 
+}
+.bg-ricevimento-blur { 
+    background: url('sfondo3pagina.jpeg') no-repeat center center / cover; 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; 
+    filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); 
+}
+
+/* Slide trasparenti che scorrono sopra gli sfondi sticky */
+.inner-slide {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
     background: transparent;
-    z-index: 5;
 }
 
-/* --- SLIDE 3: INFO (Con Sfocatura) --- */
-.messa-info {
-    background: transparent;
-    z-index: 5;
-}
+.pull-up { margin-top: -100vh; }
 
-.blur-layer {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    backdrop-filter: blur(12px) brightness(0.8);
-    -webkit-backdrop-filter: blur(12px) brightness(0.8);
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
+/* --- BOX TESTO (Giustificato) --- */
 .testo-overlay {
     position: relative;
     z-index: 20;
@@ -77,13 +102,10 @@ body, html { height: 100%; width: 100%; overflow: hidden; background-color: #fdf
     width: 85%;
     max-width: 350px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    
-    /* AGGIUNGI QUESTE RIGHE */
     text-align: justify; 
-    hyphens: auto; /* Opzionale: aiuta a spezzare le parole lunghe per evitare spazi eccessivi */
+    hyphens: auto;
 }
 
-/* Mantieni i titoli centrati se preferisci un look più dinamico */
 .testo-overlay h2 {
     text-align: center;
     font-family: 'Playfair Display', serif; 
@@ -92,12 +114,49 @@ body, html { height: 100%; width: 100%; overflow: hidden; background-color: #fdf
     color: #8d7d77;
 }
 
-/* --- 4. RICEVIMENTO --- */
-.ricevimento {
-    background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('sfondo3pagina.jpeg') center/cover;
-    z-index: 10;
+/* Centriamo i paragrafi brevi o gli indirizzi se necessario tramite helper o tag */
+.testo-overlay p { margin-bottom: 10px; }
+
+/* --- SEZIONI FINALI --- */
+.regalo {
+    background: white;
+    z-index: 30;
+    padding: 40px 20px;
+}
+
+.iban-box {
+    background: #fdfaf7;
+    padding: 20px;
+    border: 1px dashed #d1c4be;
+    font-family: monospace;
+    margin: 20px 0;
+    word-break: break-all;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.rsvp {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo5pagina.jpeg') no-repeat center center / cover;
+    color: white;
+    z-index: 30;
 }
 
 /* --- ALTRI STILI --- */
 h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; }
-.btn { display: inline-block; padding: 12px 25px; background: #8d7d77; color: white; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+.btn { 
+    display: inline-block; 
+    padding: 12px 25px; 
+    background: #8d7d77; 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 5px; 
+    margin-top: 15px; 
+    text-align: center;
+}
+
+.hint { 
+    position: absolute; bottom: 30px; font-size: 0.7rem; letter-spacing: 2px; 
+    text-transform: uppercase; color: white; animation: bounce 2s infinite; 
+}
+
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
