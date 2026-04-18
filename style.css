@@ -1,30 +1,53 @@
 /* --- RESET E BASI --- */
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent; 
+}
 
 body, html { 
-    height: 100%; width: 100%; overflow: hidden; 
-    font-family: 'Montserrat', sans-serif; background-color: #000;
+    height: 100%; 
+    width: 100%; 
+    overflow: hidden; 
+    font-family: 'Montserrat', sans-serif;
+    background-color: #000;
 }
 
+/* Contenitore principale: mandatory obbliga l'aggancio */
 .scroll-container {
-    width: 100%; height: 100svh; overflow-y: scroll;
-    scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch;
+    width: 100%;
+    height: 100svh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
 }
 
+/* Slide standard: snap-stop always impedisce di saltare più pagine */
 .slide {
-    width: 100%; height: 100svh; scroll-snap-align: start;
-    scroll-snap-stop: always; position: relative;
-    display: flex; flex-direction: column; justify-content: center;
-    align-items: center; text-align: center; z-index: 10;
+    width: 100%;
+    height: 100svh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always !important; 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
 }
 
 /* --- 1. HOME --- */
 .hero {
     background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('sfondo1pagina.jpeg') center/cover no-repeat;
-    color: white; justify-content: flex-start; padding-top: 15svh; z-index: 20;
+    color: white;
+    justify-content: flex-start;
+    padding-top: 15svh;
+    z-index: 20;
 }
 
-/* --- LOGICA WRAPPER (MESSA E RICEVIMENTO) --- */
 /* --- LOGICA WRAPPER (MESSA E RICEVIMENTO) --- */
 .sticky-wrapper {
     height: 200svh;
@@ -45,50 +68,106 @@ body, html {
     -webkit-transform: translateZ(0);
 }
 
-/* SFONDI: aggiunta will-change per Android */
-.bg-messa-sharp, .bg-ricevimento-sharp {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 2;
+/* SFONDI: will-change per fluidità Android */
+.bg-messa-sharp, .bg-messa-blur, 
+.bg-ricevimento-sharp, .bg-ricevimento-blur {
     background-position: center center !important;
     background-size: cover !important;
-    will-change: opacity; /* Ottimizza per Android */
-}
-
-.bg-messa-blur, .bg-ricevimento-blur {
+    background-repeat: no-repeat !important;
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
-    background-position: center center !important;
-    background-size: cover !important;
-    filter: blur(15px) brightness(0.85);
-    -webkit-filter: blur(15px) brightness(0.85);
 }
 
-/* BOX TESTO */
+.bg-messa-sharp { background-image: url('sfondo2pagina.jpeg'); z-index: 2; will-change: opacity; }
+.bg-messa-blur { background-image: url('sfondo2pagina.jpeg'); z-index: 1; filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); }
+
+.bg-ricevimento-sharp { background-image: url('sfondo3pagina.jpeg'); z-index: 2; will-change: opacity; }
+.bg-ricevimento-blur { background-image: url('sfondo3pagina.jpeg'); z-index: 1; filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); }
+
+/* Slide interne: anche qui snap-stop per bloccare lo scroll veloce */
+.inner-slide {
+    height: 100svh;
+    width: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always !important;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background: transparent;
+}
+
+/* Allineamento slide interne */
+.pull-up { margin-top: -100svh; }
+
+/* --- BOX TESTO: FIX iPHONE --- */
 .testo-overlay {
     position: relative;
-    z-index: 100;
-    background: rgba(255, 255, 255, 0.94);
+    z-index: 9999 !important;
+    background: rgba(255, 255, 255, 0.94); 
     padding: 40px 25px;
     border-radius: 20px;
     width: 85%;
     max-width: 350px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: center;
-    /* Compatibilità 3D per entrambi */
-    transform: translateZ(10px);
+    /* Forza il livello superiore su Safari */
+    transform: translateZ(10px); 
     -webkit-transform: translateZ(10px);
 }
 
-/* SEZIONI FINALI */
+/* --- SEZIONI FINALI --- */
 .regalo { background: #fff; z-index: 30; }
-.iban-box { background: #fdfaf7; padding: 20px; border: 1px dashed #d1c4be; font-family: monospace; margin: 20px 0; word-break: break-all; font-size: 1.1rem; text-align: center; }
-.rsvp { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo5pagina.jpeg') center/cover no-repeat; color: white; z-index: 30; }
+.iban-box { 
+    background: #fdfaf7; 
+    padding: 20px; 
+    border: 1px dashed #d1c4be; 
+    font-family: monospace; 
+    margin: 20px 0; 
+    word-break: break-all; 
+    font-size: 1.1rem; 
+    text-align: center; 
+}
+.rsvp { 
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo5pagina.jpeg') center center / cover no-repeat; 
+    color: white; 
+    z-index: 30; 
+}
 
-/* UTILITY */
+/* --- UTILITY --- */
 h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; text-align: center; }
 h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 15px; color: #8d7d77; text-align: center; }
-.btn { display: inline-block; padding: 14px 28px; background: #8d7d77; color: white; text-decoration: none; border-radius: 8px; margin-top: 15px; font-weight: 600; text-align: center; }
-.hint { position: absolute; bottom: 30px; font-size: 0.7rem; color: white; animation: bounce 2s infinite; text-align: center; width: 100%; }
-@keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
+
+.btn { 
+    display: inline-block; 
+    padding: 14px 28px; 
+    background: #8d7d77; 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 8px; 
+    margin-top: 15px; 
+    font-weight: 600; 
+    text-align: center;
+}
+
+.hint { 
+    position: absolute; 
+    bottom: 30px; 
+    font-size: 0.7rem; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    color: white; 
+    animation: bounce 2s infinite; 
+    text-align: center; 
+    width: 100%; 
+}
+
+@keyframes bounce { 
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+    40% {transform: translateY(-10px);} 
+}
