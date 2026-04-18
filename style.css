@@ -93,6 +93,7 @@ body, html {
 .pull-up { margin-top: -100vh; }
 
 /* --- BOX TESTO (Giustificato) --- */
+/* --- BOX TESTO (TUTTO CENTRATO) --- */
 .testo-overlay {
     position: relative;
     z-index: 20;
@@ -102,43 +103,43 @@ body, html {
     width: 85%;
     max-width: 350px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    text-align: justify; 
-    hyphens: auto;
+    
+    /* MODIFICA: Centratura totale del testo */
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Titoli nei box */
 .testo-overlay h2 {
     text-align: center;
     font-family: 'Playfair Display', serif; 
     font-size: 2.2rem; 
     margin-bottom: 15px; 
     color: #8d7d77;
+    width: 100%;
 }
 
-/* Centriamo i paragrafi brevi o gli indirizzi se necessario tramite helper o tag */
-.testo-overlay p { margin-bottom: 10px; }
+/* Paragrafi nei box */
+.testo-overlay p {
+    margin-bottom: 10px;
+    text-align: center; /* Forza la centratura anche per i paragrafi */
+    line-height: 1.6;
+    width: 100%;
+}
 
-/* --- SEZIONI FINALI --- */
+/* Specifica per il box Regalo (se usi la classe .regalo separata) */
 .regalo {
     background: white;
     z-index: 30;
     padding: 40px 20px;
-}
-
-.iban-box {
-    background: #fdfaf7;
-    padding: 20px;
-    border: 1px dashed #d1c4be;
-    font-family: monospace;
-    margin: 20px 0;
-    word-break: break-all;
-    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-}
-
-.rsvp {
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo5pagina.jpeg') no-repeat center center / cover;
-    color: white;
-    z-index: 30;
 }
 
 /* --- ALTRI STILI --- */
