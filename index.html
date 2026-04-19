@@ -6,10 +6,8 @@
     <title>Babbu e Cochi - 12.09.2026</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <style>
-        /* Inserisci qui il CSS che ti ho mandato nel messaggio precedente */
-    </style>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -71,23 +69,25 @@
     </div>
 
     <script>
-        const scroller = document.getElementById('main-container');
+        const container = document.getElementById('main-container');
         const messaSharp = document.getElementById('messa-sharp');
+        const wrapMessa = document.getElementById('wrapper-messa');
         const ricevimentoSharp = document.getElementById('ricevimento-sharp');
-        const wrapperMessa = document.getElementById('wrapper-messa');
-        const wrapperRicevimento = document.getElementById('wrapper-ricevimento');
+        const wrapRicevimento = document.getElementById('wrapper-ricevimento');
 
         let isScrolling = false;
         let touchStartY = 0;
 
-        // --- SISTEMA ANTI-SLIP (Blocca lo scroll multiplo) ---
-        scroller.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, {passive: true});
+        // --- SISTEMA ANTI-SLIP PER BLOCCARE LO SCROLL MULTIPLO ---
+        container.addEventListener('touchstart', e => { 
+            touchStartY = e.touches[0].clientY; 
+        }, {passive: true});
         
-        scroller.addEventListener('touchmove', e => { 
+        container.addEventListener('touchmove', e => { 
             if(isScrolling) e.preventDefault(); 
         }, {passive: false});
 
-        scroller.addEventListener('touchend', e => {
+        container.addEventListener('touchend', e => {
             const touchEndY = e.changedTouches[0].clientY;
             const delta = touchStartY - touchEndY;
             if (Math.abs(delta) > 50 && !isScrolling) {
@@ -95,59 +95,53 @@
             }
         }, {passive: true});
 
-        scroller.addEventListener('wheel', e => {
+        container.addEventListener('wheel', e => {
             e.preventDefault();
             if(!isScrolling) performSnap(e.deltaY > 0 ? 1 : -1);
         }, {passive: false});
 
         function performSnap(direction) {
             const vh = window.innerHeight;
-            const currentScroll = scroller.scrollTop;
+            const currentScroll = container.scrollTop;
             let target = Math.round(currentScroll / vh) * vh + (direction * vh);
             
-            target = Math.max(0, Math.min(target, scroller.scrollHeight - vh));
+            target = Math.max(0, Math.min(target, container.scrollHeight - vh));
 
             isScrolling = true;
-            scroller.scrollTo({ top: target, behavior: 'smooth' });
+            container.scrollTo({ top: target, behavior: 'smooth' });
             
             setTimeout(() => { isScrolling = false; }, 800);
         }
 
-        // --- LOGICA SFOCATURA E LIVELLI ---
-        scroller.addEventListener('scroll', () => {
-            const scrollTop = scroller.scrollTop;
+        // --- GESTIONE SFOCATURA DINAMICA E LIVELLI Z-INDEX ---
+        container.addEventListener('scroll', () => {
+            const st = container.scrollTop;
             const vh = window.innerHeight;
 
-            // Messa
-            const startMessa = wrapperMessa.offsetTop;
-            if (scrollTop >= startMessa && scrollTop <= startMessa + vh) {
-                let progress = (scrollTop - startMessa) / vh;
-                let opacity = 1 - (progress * 2.5); 
-                messaSharp.style.opacity = Math.max(0, Math.min(1, opacity));
-            } else if (scrollTop < startMessa) {
+            // Blur Messa
+            const offMessa = wrapMessa.offsetTop;
+            if (st >= offMessa && st <= offMessa + vh) {
+                let op = 1 - ((st - offMessa) / vh * 2.5);
+                messaSharp.style.opacity = Math.max(0, Math.min(1, op));
+            } else if (st < offMessa) {
                 messaSharp.style.opacity = 1;
-            } else {
-                messaSharp.style.opacity = 0;
             }
 
-            // Ricevimento e Fix Z-index
-            const startRicevimento = wrapperRicevimento.offsetTop;
-            if (scrollTop > startRicevimento - (vh / 2)) {
-                wrapperMessa.style.zIndex = "1";
-                wrapperRicevimento.style.zIndex = "20";
+            // Fix Z-Index e Blur Ricevimento
+            const offRicevimento = wrapRicevimento.offsetTop;
+            if (st > offRicevimento - (vh/2)) {
+                wrapMessa.style.zIndex = "1";
+                wrapRicevimento.style.zIndex = "20";
             } else {
-                wrapperMessa.style.zIndex = "20";
-                wrapperRicevimento.style.zIndex = "1";
+                wrapMessa.style.zIndex = "20";
+                wrapRicevimento.style.zIndex = "1";
             }
 
-            if (scrollTop >= startRicevimento && scrollTop <= startRicevimento + vh) {
-                let progress = (scrollTop - startRicevimento) / vh;
-                let opacity = 1 - (progress * 2.5);
-                ricevimentoSharp.style.opacity = Math.max(0, Math.min(1, opacity));
-            } else if (scrollTop < startRicevimento) {
+            if (st >= offRicevimento && st <= offRicevimento + vh) {
+                let op = 1 - ((st - offRicevimento) / vh * 2.5);
+                ricevimentoSharp.style.opacity = Math.max(0, Math.min(1, op));
+            } else if (st < offRicevimento) {
                 ricevimentoSharp.style.opacity = 1;
-            } else {
-                ricevimentoSharp.style.opacity = 0;
             }
         });
     </script>
