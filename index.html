@@ -4,158 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Babbu e Cochi - 12.09.2026</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="scroll-container" id="main-container">
+    <div class="scroll-container">
         
         <section class="slide hero">
-            <h1>Babbu e Cochi</h1>
-            <p style="letter-spacing: 3px;">12 SETTEMBRE 2026</p>
-            <div class="hint">↓</div>
+            <div class="hero-top" style="padding-top: 10svh; width: 100%;">
+                <h1>Babbu e Cochi</h1>
+                <p style="letter-spacing: 3px; text-align: center;">12 SETTEMBRE 2026</p>
+            </div>
+            <div class="citazione">
+                «Avendo amato i suoi che erano nel mondo, li amò sino alla fine»
+                <br><span style="font-size: 0.8rem; font-style: normal; text-transform: uppercase;">(Gv 13, 1)</span>
+            </div>
+            <div class="hint">La Cerimonia ↓</div>
         </section>
 
         <div class="sticky-wrapper" id="wrapper-messa">
             <div class="sticky-bg-group">
-                <div class="bg-messa-blur"></div>
-                <div id="messa-sharp" class="bg-messa-sharp"></div>
+                <div class="bg-sharp bg-messa-blur"></div>
+                <div id="messa-sharp" class="bg-sharp bg-messa-sharp"></div>
             </div>
             <section class="inner-slide pull-up">
-                <div class="hint" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">La Cerimonia ↓</div>
+                <div class="hint" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">S. Messa↓</div>
             </section>
             <section class="inner-slide">
                 <div class="testo-overlay">
                     <h2>S. Messa</h2>
                     <p>Ore 11:00</p>
                     <p><strong>Chiesa dei Santi Apollinare e Materno</strong></p>
-                    <a href="https://maps.app.goo.gl/jtSGPfWMDuj2Wun47" target="_blank" class="btn">📍 Apri Mappa</a>
+                    <a href="INSERISCI_LINK_MAPS" target="_blank" class="btn">📍 Apri Mappa</a>
                 </div>
             </section>
         </div>
 
         <div class="sticky-wrapper" id="wrapper-ricevimento">
             <div class="sticky-bg-group">
-                <div class="bg-ricevimento-blur"></div>
-                <div id="ricevimento-sharp" class="bg-ricevimento-sharp"></div>
+                <div class="bg-sharp bg-ricevimento-blur"></div>
+                <div id="ricevimento-sharp" class="bg-sharp bg-ricevimento-sharp"></div>
             </div>
             <section class="inner-slide pull-up">
-                <div class="hint" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Il Ricevimento ↓</div>
+                <div class="hint" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Ricevimento ↓</div>
             </section>
             <section class="inner-slide">
                 <div class="testo-overlay">
                     <h2>Ricevimento</h2>
                     <p>Villa Ex Magni Rizzoli</p>
                     <p>Canzo (CO)</p>
-                    <a href="https://maps.app.goo.gl/A4pXxr4C4FScMBsc9" target="_blank" class="btn">📍 Naviga</a>
+                    <a href="INSERISCI_LINK_NAVIGA" target="_blank" class="btn">📍 Naviga</a>
                 </div>
             </section>
         </div>
 
-        <section class="slide regalo">
-            <h2>Un Pensiero</h2>
-            <div class="iban-box">IT57K0347501605CC0012832005</div>
-            <p style="font-size: 0.8rem; color: #888; text-align: center;">Intestato a Luca Tosoni</p>
-        </section>
+        <div class="sticky-wrapper" id="wrapper-regalo">
+            <div class="sticky-bg-group">
+                <div class="bg-sharp bg-regalo-blur"></div>
+                <div id="regalo-sharp" class="bg-sharp bg-regalo-sharp"></div>
+            </div>
+            <section class="inner-slide pull-up">
+                <div class="hint" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Un Pensiero ↓</div>
+            </section>
+            <section class="inner-slide">
+                <div class="testo-overlay">
+                    <h2>Un Pensiero</h2>
+                    <p style="font-size: 0.85rem; margin-bottom: 15px; line-height: 1.4;">
+                        Vorremmo provare un sushi gustoso, vuoi aiutarci?
+                    </p>
+                    <div class="iban-box">IT57K0347501605CC0012832005</div>
+                    <p style="font-size: 0.8rem; color: #888;">Intestato a Luca Tosoni
+<br> Causale: Regalo di nozze - Nome Cognome
+
+</p>
+                </div>
+            </section>
+        </div>
 
         <section class="slide rsvp">
-            <h2>Ci sarete?</h2>
-            <a href="https://forms.gle/EEas74Vv7GRVLyHr6" target="_blank" class="btn" style="background:white; color:#8d7d77;">CONFERMA ORA</a>
+            <div style="width: 100%;">
+                <h2>Ci sarete?</h2>
+                <a href="https://forms.gle/EEas74Vv7GRVLyHr6" target="_blank" class="btn" style="background:white; color:#8d7d77;">CONFERMA ORA</a>
+            </div>
         </section>
 
     </div>
 
     <script>
-    const scroller = document.getElementById('main-container');
-    const messaSharp = document.getElementById('messa-sharp');
-    const wrapMessa = document.getElementById('wrapper-messa');
-    const ricevimentoSharp = document.getElementById('ricevimento-sharp');
-    const wrapRicevimento = document.getElementById('wrapper-ricevimento');
+        const container = document.querySelector('.scroll-container');
+        const messaSharp = document.getElementById('messa-sharp');
+        const ricevimentoSharp = document.getElementById('ricevimento-sharp');
+        const regaloSharp = document.getElementById('regalo-sharp');
+        const wrapMessa = document.getElementById('wrapper-messa');
+        const wrapRicevimento = document.getElementById('wrapper-ricevimento');
+        const wrapRegalo = document.getElementById('wrapper-regalo');
 
-    let isScrolling = false;
-    let touchStartY = 0;
+        container.addEventListener('scroll', () => {
+            const st = container.scrollTop;
+            const vh = window.innerHeight;
 
-    // --- RILEVAZIONE TOCCO ---
-    scroller.addEventListener('touchstart', e => { 
-        touchStartY = e.touches[0].clientY; 
-    }, {passive: true});
+            // Blur Messa
+            const offMessa = wrapMessa.offsetTop;
+            if (st >= offMessa && st <= offMessa + vh) {
+                let op = 1 - ((st - offMessa) / vh * 1.5);
+                messaSharp.style.opacity = Math.max(0, Math.min(1, op));
+            }
 
-    // Blocca il movimento fisico se stiamo già animando
-    scroller.addEventListener('touchmove', e => { 
-        if(isScrolling) e.preventDefault(); 
-    }, {passive: false});
+            // Blur Ricevimento
+            const offRicevimento = wrapRicevimento.offsetTop;
+            if (st >= offRicevimento && st <= offRicevimento + vh) {
+                let op = 1 - ((st - offRicevimento) / vh * 1.5);
+                ricevimentoSharp.style.opacity = Math.max(0, Math.min(1, op));
+            }
+            
+            // Blur Regalo
+            const offRegalo = wrapRegalo.offsetTop;
+            if (st >= offRegalo && st <= offRegalo + vh) {
+                let op = 1 - ((st - offRegalo) / vh * 1.5);
+                regaloSharp.style.opacity = Math.max(0, Math.min(1, op));
+            }
 
-    scroller.addEventListener('touchend', e => {
-        const touchEndY = e.changedTouches[0].clientY;
-        const delta = touchStartY - touchEndY;
-        
-        // Sensibilità: 50px di movimento del dito per cambiare pagina
-        if (Math.abs(delta) > 50 && !isScrolling) {
-            performSnap(delta > 0 ? 1 : -1);
-        }
-    }, {passive: true});
-
-    // Supporto Mouse/Trackpad
-    scroller.addEventListener('wheel', e => {
-        e.preventDefault();
-        if(!isScrolling) performSnap(e.deltaY > 0 ? 1 : -1);
-    }, {passive: false});
-
-    function performSnap(direction) {
-        const vh = window.innerHeight;
-        const currentScroll = scroller.scrollTop;
-        let target = Math.round(currentScroll / vh) * vh + (direction * vh);
-        
-        target = Math.max(0, Math.min(target, scroller.scrollHeight - vh));
-
-        isScrolling = true;
-        
-        // BLOCCA l'inerzia: aggiungiamo una classe al contenitore
-        scroller.classList.add('stop-scrolling');
-
-        scroller.scrollTo({ 
-            top: target, 
-            behavior: 'smooth' 
+            // Fix Z-Index per iPhone
+            if (st > offRegalo - (vh/2)) {
+                wrapRicevimento.style.zIndex = "1"; wrapRegalo.style.zIndex = "20";
+            } else if (st > offRicevimento - (vh/2)) {
+                wrapMessa.style.zIndex = "1"; wrapRicevimento.style.zIndex = "20";
+            } else {
+                wrapMessa.style.zIndex = "20"; wrapRicevimento.style.zIndex = "1";
+            }
         });
-        
-        // Sblocca dopo che l'animazione è finita (800ms)
-        setTimeout(() => { 
-            isScrolling = false; 
-            scroller.classList.remove('stop-scrolling');
-        }, 800);
-    }
-
-    // --- LOGICA SFOCATURA (Blur) ---
-    scroller.addEventListener('scroll', () => {
-        const st = scroller.scrollTop;
-        const vh = window.innerHeight;
-
-        // Blur Messa
-        const offMessa = wrapMessa.offsetTop;
-        if (st >= offMessa && st <= offMessa + vh) {
-            let op = 1 - ((st - offMessa) / vh * 2.5);
-            messaSharp.style.opacity = Math.max(0, Math.min(1, op));
-        }
-
-        // Fix Z-Index e Blur Ricevimento
-        const offRicevimento = wrapRicevimento.offsetTop;
-        if (st > offRicevimento - (vh / 2)) {
-            wrapMessa.style.zIndex = "1";
-            wrapRicevimento.style.zIndex = "20";
-        } else {
-            wrapMessa.style.zIndex = "20";
-            wrapRicevimento.style.zIndex = "1";
-        }
-
-        if (st >= offRicevimento && st <= offRicevimento + vh) {
-            let op = 1 - ((st - offRicevimento) / vh * 2.5);
-            ricevimentoSharp.style.opacity = Math.max(0, Math.min(1, op));
-        }
-    });
-</script>
-    
+    </script>
 </body>
 </html>
