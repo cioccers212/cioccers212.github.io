@@ -14,7 +14,7 @@ body, html {
     background-color: #000;
 }
 
-/* Contenitore principale: mandatory obbliga l'aggancio */
+/* Contenitore principale: mandatory obbliga l'aggancio millimetrico */
 .scroll-container {
     width: 100%;
     height: 100svh;
@@ -22,9 +22,10 @@ body, html {
     scroll-snap-type: y mandatory;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+    overscroll-behavior-y: contain; /* Impedisce rimbalzi fastidiosi su Android */
 }
 
-/* Slide standard: snap-stop always impedisce di saltare più pagine */
+/* Slide standard: snap-stop always blocca il momentum (frena la scrollata) */
 .slide {
     width: 100%;
     height: 100svh;
@@ -54,7 +55,7 @@ body, html {
     position: relative;
     z-index: 5;
     overflow: visible;
-    isolation: isolate; 
+    isolation: isolate; /* Crea un contesto separato per evitare che il blur copra il testo su iOS */
 }
 
 .sticky-bg-group {
@@ -68,7 +69,7 @@ body, html {
     -webkit-transform: translateZ(0);
 }
 
-/* SFONDI: will-change per fluidità Android */
+/* SFONDI */
 .bg-messa-sharp, .bg-messa-blur, 
 .bg-ricevimento-sharp, .bg-ricevimento-blur {
     background-position: center center !important;
@@ -88,7 +89,7 @@ body, html {
 .bg-ricevimento-sharp { background-image: url('sfondo3pagina.jpeg'); z-index: 2; will-change: opacity; }
 .bg-ricevimento-blur { background-image: url('sfondo3pagina.jpeg'); z-index: 1; filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); }
 
-/* Slide interne: anche qui snap-stop per bloccare lo scroll veloce */
+/* Slide interne: blocco snap obbligatorio anche qui */
 .inner-slide {
     height: 100svh;
     width: 100%;
@@ -102,13 +103,12 @@ body, html {
     background: transparent;
 }
 
-/* Allineamento slide interne */
 .pull-up { margin-top: -100svh; }
 
 /* --- BOX TESTO: FIX iPHONE --- */
 .testo-overlay {
     position: relative;
-    z-index: 9999 !important;
+    z-index: 100 !important;
     background: rgba(255, 255, 255, 0.94); 
     padding: 40px 25px;
     border-radius: 20px;
@@ -116,7 +116,7 @@ body, html {
     max-width: 350px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: center;
-    /* Forza il livello superiore su Safari */
+    /* Sposta fisicamente il testo sopra la nebbia del blur su Safari */
     transform: translateZ(10px); 
     -webkit-transform: translateZ(10px);
 }
