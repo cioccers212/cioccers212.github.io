@@ -69,81 +69,93 @@
     </div>
 
     <script>
-        const container = document.getElementById('main-container');
-        const messaSharp = document.getElementById('messa-sharp');
-        const wrapMessa = document.getElementById('wrapper-messa');
-        const ricevimentoSharp = document.getElementById('ricevimento-sharp');
-        const wrapRicevimento = document.getElementById('wrapper-ricevimento');
+    const scroller = document.getElementById('main-container');
+    const messaSharp = document.getElementById('messa-sharp');
+    const wrapMessa = document.getElementById('wrapper-messa');
+    const ricevimentoSharp = document.getElementById('ricevimento-sharp');
+    const wrapRicevimento = document.getElementById('wrapper-ricevimento');
 
-        let isScrolling = false;
-        let touchStartY = 0;
+    let isScrolling = false;
+    let touchStartY = 0;
 
-        // --- SISTEMA ANTI-SLIP PER BLOCCARE LO SCROLL MULTIPLO ---
-        container.addEventListener('touchstart', e => { 
-            touchStartY = e.touches[0].clientY; 
-        }, {passive: true});
+    // --- RILEVAZIONE TOCCO ---
+    scroller.addEventListener('touchstart', e => { 
+        touchStartY = e.touches[0].clientY; 
+    }, {passive: true});
+
+    // Blocca il movimento fisico se stiamo già animando
+    scroller.addEventListener('touchmove', e => { 
+        if(isScrolling) e.preventDefault(); 
+    }, {passive: false});
+
+    scroller.addEventListener('touchend', e => {
+        const touchEndY = e.changedTouches[0].clientY;
+        const delta = touchStartY - touchEndY;
         
-        container.addEventListener('touchmove', e => { 
-            if(isScrolling) e.preventDefault(); 
-        }, {passive: false});
+        // Sensibilità: 50px di movimento del dito per cambiare pagina
+        if (Math.abs(delta) > 50 && !isScrolling) {
+            performSnap(delta > 0 ? 1 : -1);
+        }
+    }, {passive: true});
 
-        container.addEventListener('touchend', e => {
-            const touchEndY = e.changedTouches[0].clientY;
-            const delta = touchStartY - touchEndY;
-            if (Math.abs(delta) > 50 && !isScrolling) {
-                performSnap(delta > 0 ? 1 : -1);
-            }
-        }, {passive: true});
+    // Supporto Mouse/Trackpad
+    scroller.addEventListener('wheel', e => {
+        e.preventDefault();
+        if(!isScrolling) performSnap(e.deltaY > 0 ? 1 : -1);
+    }, {passive: false});
 
-        container.addEventListener('wheel', e => {
-            e.preventDefault();
-            if(!isScrolling) performSnap(e.deltaY > 0 ? 1 : -1);
-        }, {passive: false});
+    function performSnap(direction) {
+        const vh = window.innerHeight;
+        const currentScroll = scroller.scrollTop;
+        let target = Math.round(currentScroll / vh) * vh + (direction * vh);
+        
+        target = Math.max(0, Math.min(target, scroller.scrollHeight - vh));
 
-        function performSnap(direction) {
-            const vh = window.innerHeight;
-            const currentScroll = container.scrollTop;
-            let target = Math.round(currentScroll / vh) * vh + (direction * vh);
-            
-            target = Math.max(0, Math.min(target, container.scrollHeight - vh));
+        isScrolling = true;
+        
+        // BLOCCA l'inerzia: aggiungiamo una classe al contenitore
+        scroller.classList.add('stop-scrolling');
 
-            isScrolling = true;
-            container.scrollTo({ top: target, behavior: 'smooth' });
-            
-            setTimeout(() => { isScrolling = false; }, 800);
+        scroller.scrollTo({ 
+            top: target, 
+            behavior: 'smooth' 
+        });
+        
+        // Sblocca dopo che l'animazione è finita (800ms)
+        setTimeout(() => { 
+            isScrolling = false; 
+            scroller.classList.remove('stop-scrolling');
+        }, 800);
+    }
+
+    // --- LOGICA SFOCATURA (Blur) ---
+    scroller.addEventListener('scroll', () => {
+        const st = scroller.scrollTop;
+        const vh = window.innerHeight;
+
+        // Blur Messa
+        const offMessa = wrapMessa.offsetTop;
+        if (st >= offMessa && st <= offMessa + vh) {
+            let op = 1 - ((st - offMessa) / vh * 2.5);
+            messaSharp.style.opacity = Math.max(0, Math.min(1, op));
         }
 
-        // --- GESTIONE SFOCATURA DINAMICA E LIVELLI Z-INDEX ---
-        container.addEventListener('scroll', () => {
-            const st = container.scrollTop;
-            const vh = window.innerHeight;
+        // Fix Z-Index e Blur Ricevimento
+        const offRicevimento = wrapRicevimento.offsetTop;
+        if (st > offRicevimento - (vh / 2)) {
+            wrapMessa.style.zIndex = "1";
+            wrapRicevimento.style.zIndex = "20";
+        } else {
+            wrapMessa.style.zIndex = "20";
+            wrapRicevimento.style.zIndex = "1";
+        }
 
-            // Blur Messa
-            const offMessa = wrapMessa.offsetTop;
-            if (st >= offMessa && st <= offMessa + vh) {
-                let op = 1 - ((st - offMessa) / vh * 2.5);
-                messaSharp.style.opacity = Math.max(0, Math.min(1, op));
-            } else if (st < offMessa) {
-                messaSharp.style.opacity = 1;
-            }
-
-            // Fix Z-Index e Blur Ricevimento
-            const offRicevimento = wrapRicevimento.offsetTop;
-            if (st > offRicevimento - (vh/2)) {
-                wrapMessa.style.zIndex = "1";
-                wrapRicevimento.style.zIndex = "20";
-            } else {
-                wrapMessa.style.zIndex = "20";
-                wrapRicevimento.style.zIndex = "1";
-            }
-
-            if (st >= offRicevimento && st <= offRicevimento + vh) {
-                let op = 1 - ((st - offRicevimento) / vh * 2.5);
-                ricevimentoSharp.style.opacity = Math.max(0, Math.min(1, op));
-            } else if (st < offRicevimento) {
-                ricevimentoSharp.style.opacity = 1;
-            }
-        });
-    </script>
+        if (st >= offRicevimento && st <= offRicevimento + vh) {
+            let op = 1 - ((st - offRicevimento) / vh * 2.5);
+            ricevimentoSharp.style.opacity = Math.max(0, Math.min(1, op));
+        }
+    });
+</script>
+    
 </body>
 </html>
