@@ -14,23 +14,22 @@ body, html {
     background-color: #000;
 }
 
-/* Contenitore principale: mandatory obbliga l'aggancio millimetrico */
+/* Contenitore principale: Lo snap nativo è rimosso per essere gestito dal JS anti-slip */
 .scroll-container {
     width: 100%;
     height: 100svh;
     overflow-y: scroll;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: none; 
     -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    overscroll-behavior-y: contain; /* Impedisce rimbalzi fastidiosi su Android */
+    scrollbar-width: none;
+}
+.scroll-container::-webkit-scrollbar { 
+    display: none; 
 }
 
-/* Slide standard: snap-stop always blocca il momentum (frena la scrollata) */
 .slide {
     width: 100%;
     height: 100svh;
-    scroll-snap-align: start;
-    scroll-snap-stop: always !important; 
     position: relative;
     display: flex;
     flex-direction: column;
@@ -55,7 +54,7 @@ body, html {
     position: relative;
     z-index: 5;
     overflow: visible;
-    isolation: isolate; /* Crea un contesto separato per evitare che il blur copra il testo su iOS */
+    isolation: isolate; 
 }
 
 .sticky-bg-group {
@@ -70,31 +69,55 @@ body, html {
 }
 
 /* SFONDI */
-.bg-messa-sharp, .bg-messa-blur, 
-.bg-ricevimento-sharp, .bg-ricevimento-blur {
-    background-position: center center !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+.bg-messa-sharp { 
+    background: url('sfondo2pagina.jpeg') center/cover no-repeat; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 2; 
+    will-change: opacity; 
 }
 
-.bg-messa-sharp { background-image: url('sfondo2pagina.jpeg'); z-index: 2; will-change: opacity; }
-.bg-messa-blur { background-image: url('sfondo2pagina.jpeg'); z-index: 1; filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); }
+.bg-messa-blur { 
+    background: url('sfondo2pagina.jpeg') center/cover no-repeat; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; 
+    filter: blur(15px) brightness(0.85); 
+    -webkit-filter: blur(15px) brightness(0.85); 
+}
 
-.bg-ricevimento-sharp { background-image: url('sfondo3pagina.jpeg'); z-index: 2; will-change: opacity; }
-.bg-ricevimento-blur { background-image: url('sfondo3pagina.jpeg'); z-index: 1; filter: blur(15px) brightness(0.85); -webkit-filter: blur(15px) brightness(0.85); }
+.bg-ricevimento-sharp { 
+    background: url('sfondo3pagina.jpeg') center/cover no-repeat; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 2; 
+    will-change: opacity; 
+}
 
-/* Slide interne: blocco snap obbligatorio anche qui */
+.bg-ricevimento-blur { 
+    background: url('sfondo3pagina.jpeg') center/cover no-repeat; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: 1; 
+    filter: blur(15px) brightness(0.85); 
+    -webkit-filter: blur(15px) brightness(0.85); 
+}
+
 .inner-slide {
     height: 100svh;
     width: 100%;
-    scroll-snap-align: start;
-    scroll-snap-stop: always !important;
     position: relative;
     display: flex;
     justify-content: center;
@@ -103,7 +126,9 @@ body, html {
     background: transparent;
 }
 
-.pull-up { margin-top: -100svh; }
+.pull-up { 
+    margin-top: -100svh; 
+}
 
 /* --- BOX TESTO: FIX iPHONE --- */
 .testo-overlay {
@@ -116,13 +141,17 @@ body, html {
     max-width: 350px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: center;
-    /* Sposta fisicamente il testo sopra la nebbia del blur su Safari */
+    /* Forza il livello superiore su Safari per evitare che il blur lo copra */
     transform: translateZ(10px); 
     -webkit-transform: translateZ(10px);
 }
 
 /* --- SEZIONI FINALI --- */
-.regalo { background: #fff; z-index: 30; }
+.regalo { 
+    background: #fff; 
+    z-index: 30; 
+}
+
 .iban-box { 
     background: #fdfaf7; 
     padding: 20px; 
@@ -133,6 +162,7 @@ body, html {
     font-size: 1.1rem; 
     text-align: center; 
 }
+
 .rsvp { 
     background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo5pagina.jpeg') center center / cover no-repeat; 
     color: white; 
@@ -140,8 +170,20 @@ body, html {
 }
 
 /* --- UTILITY --- */
-h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; text-align: center; }
-h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 15px; color: #8d7d77; text-align: center; }
+h1 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 3rem; 
+    margin-bottom: 10px; 
+    text-align: center; 
+}
+
+h2 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 2.2rem; 
+    margin-bottom: 15px; 
+    color: #8d7d77; 
+    text-align: center; 
+}
 
 .btn { 
     display: inline-block; 
@@ -152,7 +194,7 @@ h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 1
     border-radius: 8px; 
     margin-top: 15px; 
     font-weight: 600; 
-    text-align: center;
+    text-align: center; 
 }
 
 .hint { 
